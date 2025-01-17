@@ -20,26 +20,46 @@
       </header>
     </div>
     <main>
-      <div class="products-container">
-        <div class="product" data-item="game_boy">
-          <img src="./images/game_boy_color.png" alt="" />
+      <form id="vote-form">
+        <div class="products-container">
+          <div
+            class="product"
+            data-item="game_boy"
+            data-title="Game Boy"
+            data-description="Videoconsola portátil de Nintendo"
+          >
+            <img src="./images/game_boy_color.png" alt="" />
+          </div>
+          <div
+            class="product"
+            data-item="ipod_classic"
+            data-title="Ipod classic"
+            data-description="Reproductor de música digital de Apple"
+          >
+            <img src="./images/ipod_classic.png" alt="" />
+          </div>
+          <div
+            class="product"
+            data-item="playstation_2"
+            data-title="Playstation 2"
+            data-description="Consola de videojuegos de Sony"
+          >
+            <img src="./images/playstation_2.png" alt="" />
+          </div>
         </div>
-        <div class="product" data-item="ipod_classic">
-          <img src="./images/ipod_classic.png" alt="" />
+        <div class="btn-container">
+          <button type="submit" class="disabled" id="btn-register-vote">
+            Registrar voto
+          </button>
         </div>
-        <div class="product" data-item="playstation_2">
-          <img src="./images/playstation_2.png" alt="" />
-        </div>
-      </div>
-      <div class="btn-container">
-        <button disabled class="disabled" id="btn-register-vote">
-          Registrar voto
-        </button>
-      </div>
+      </form>
     </main>
     <footer>
       <div>footer</div>
     </footer>
+    <div class="modal"></div>
+    <div class="overlay"></div>
+
     <script src="./js/app.js"></script>
   </body>
 </html>
