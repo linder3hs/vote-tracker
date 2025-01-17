@@ -114,6 +114,7 @@ main {
   max-width: var(--products-max-width);
   margin: 0 auto;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .product {
@@ -127,6 +128,29 @@ main {
   transition: transform var(--transition-normal);
   width: 30%;
   border-radius: var(--border-radius-small);
+  position: relative;
+}
+
+.tooltip {
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 4px;
+  /* Position the tooltip */
+  position: absolute;
+  bottom: 105%; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  /* Fade-in effect */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.product:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
 }
 
 .product:hover {
@@ -166,6 +190,41 @@ footer {
   align-items: center;
   justify-content: center;
   margin-top: auto;
+}
+
+.modal {
+  position: fixed;
+  background-color: var(--white-color);
+  width: 80%;
+  max-width: 500px;
+  height: auto;
+  display: none; /* Oculto por defecto */
+  right: 50%;
+  top: 50%;
+  transform: translate(50%, -50%);
+  border-radius: var(--border-radius-large);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: var(--spacing-medium);
+  z-index: 1000;
+}
+
+.modal.active {
+  display: block; /* Mostrar el modal cuando tenga la clase 'active' */
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 900;
+}
+
+.overlay.active {
+  display: block;
 }
 
 /* Tablet and smaller */
