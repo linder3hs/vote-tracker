@@ -41,24 +41,16 @@ function renderProducts() {
 
   // iteramos la lista de productos
   for (let randomProduct of randomProducts) {
-    // primero vamos a crear el objeto
-    const newProduct = new Product(
-      randomProduct.name,
-      randomProduct.year,
-      randomProduct.description,
-      randomProduct.image_file
-    );
-
     // luego creamos la ui
     const productContainer = document.createElement("div");
     productContainer.classList.add("product");
-    productContainer.dataset.item = newProduct.name; // data-item
-    productContainer.dataset.title = newProduct.name;
-    productContainer.dataset.description = newProduct.description;
+    productContainer.dataset.item = randomProduct.name; // data-item
+    productContainer.dataset.title = randomProduct.name;
+    productContainer.dataset.description = randomProduct.description;
 
     const productImage = document.createElement("img");
-    productImage.alt = newProduct.name;
-    productImage.src = "./images/" + newProduct.image_file;
+    productImage.alt = randomProduct.name;
+    productImage.src = "./images/" + randomProduct.image_file;
 
     productContainer.appendChild(productImage);
     productsContainer.appendChild(productContainer);
@@ -78,6 +70,8 @@ function addTooltipToDiv(product) {
 }
 
 function getCurrentSelectedProduct() {
+  const products = document.querySelectorAll(".product");
+
   for (let product of products) {
     if (product.classList.contains("selected")) {
       return product;
@@ -132,11 +126,35 @@ voteForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
   const currentSelectedProduct = getCurrentSelectedProduct();
+  const title = currentSelectedProduct.dataset.title;
+
+  /**
+   * Primero debemos buscar si el producto existe en localStorage sumarle 1 si no crearlo
+   */
+
+  // agregar el voto y crear el product en localStorage
+  // debemos buscar el producto en la lista, en este caso vamos a buscar por nombre
+  const searchedProduct = productsList.find(
+    (product) => product.name === title
+  );
+
+  const newProduct = new Product(
+    searchedProduct.name,
+    searchedProduct.year,
+    searchedProduct.description,
+    searchedProduct.image_file,
+    1
+  );
+
+  voteProducts.push(newProduct);
+
+  localStorage.setItem("products", JSON.stringify(voteProducts));
 
   openModal();
+
   createContentModal({
     image: "",
-    title: currentSelectedProduct.dataset.title,
+    title: title,
     description: currentSelectedProduct.dataset.description,
   });
 });
