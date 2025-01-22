@@ -21,8 +21,8 @@
     </div>
     <main>
       <form id="vote-form">
-        <div class="products-container">
-          <div
+        <div id="products-container" class="products-container">
+          <!-- <div
             class="product"
             data-item="game_boy"
             data-title="Game Boy"
@@ -45,7 +45,7 @@
             data-description="Consola de videojuegos de Sony"
           >
             <img src="./images/playstation_2.png" alt="" />
-          </div>
+          </div> -->
         </div>
         <div class="btn-container">
           <button type="submit" class="disabled" id="btn-register-vote">
@@ -60,6 +60,11 @@
     <div class="modal"></div>
     <div class="overlay"></div>
 
+    <!-- primero products -->
+    <script src="./products.js"></script>
+    <!-- segundo la function constructora -->
+    <script src="./js/Product.js"></script>
+    <!-- ultimo app.js -->
     <script src="./js/app.js"></script>
   </body>
 </html>
