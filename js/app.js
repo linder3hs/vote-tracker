@@ -129,26 +129,43 @@ voteForm.addEventListener("submit", function (event) {
   const title = currentSelectedProduct.dataset.title;
 
   /**
+   * Primero vamos a verificar que el producto no exista en la lista de productos que es la variable voteProducts
+   */
+
+  const searchProductInVoteProducts = voteProducts.find(
+    (voteProduct) => voteProduct.name === title
+  );
+
+  // si la condicion se cumple la funcion find nos retorna un elemento, pero si no retorna undefined
+  // undefined -> creamos el producto en localStorage
+  // object -> actualizamos la cantidad de votos
+  if (searchProductInVoteProducts) {
+    // actualizamos el elemento
+    searchProductInVoteProducts.vote_quantity++;
+  } else {
+    // debemos crear el producto
+    const searchedProduct = productsList.find(
+      (product) => product.name === title
+    );
+
+    const newProduct = new Product(
+      searchedProduct.name,
+      searchedProduct.year,
+      searchedProduct.description,
+      searchedProduct.image_file,
+      1
+    );
+
+    voteProducts.push(newProduct);
+  }
+  localStorage.setItem("products", JSON.stringify(voteProducts));
+
+  /**
    * Primero debemos buscar si el producto existe en localStorage sumarle 1 si no crearlo
    */
 
   // agregar el voto y crear el product en localStorage
   // debemos buscar el producto en la lista, en este caso vamos a buscar por nombre
-  const searchedProduct = productsList.find(
-    (product) => product.name === title
-  );
-
-  const newProduct = new Product(
-    searchedProduct.name,
-    searchedProduct.year,
-    searchedProduct.description,
-    searchedProduct.image_file,
-    1
-  );
-
-  voteProducts.push(newProduct);
-
-  localStorage.setItem("products", JSON.stringify(voteProducts));
 
   openModal();
 
