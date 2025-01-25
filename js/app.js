@@ -38,7 +38,7 @@ function setToolTip() {
 function renderProducts() {
   // esta funcion retorna 3 productos al azar
   const randomProducts = getRandomProducts();
-productsContainer.innerHTML = "";
+  productsContainer.innerHTML = "";
   // iteramos la lista de productos
   for (let randomProduct of randomProducts) {
     // luego creamos la ui
@@ -135,7 +135,6 @@ function continueVote() {
   closeModal();
   renderProducts();
 }
-
 
 voteForm.addEventListener("submit", function (event) {
   // Paso1: es evitar que el formulario recargue la pagina
