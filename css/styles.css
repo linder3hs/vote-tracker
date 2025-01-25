@@ -208,7 +208,7 @@ footer {
   right: 50%;
   top: 50%;
   transform: translate(50%, -50%);
-  border-radius: var(--border-radius-large);
+  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: var(--spacing-medium);
   z-index: 1000;
@@ -231,6 +231,25 @@ footer {
 
 .overlay.active {
   display: block;
+}
+
+.modal-content {
+  padding: 12px;
+}
+
+.modal-content > * {
+  margin-bottom: 20px;
+}
+
+.btn-modal {
+  padding: 7px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-modal:last-child {
+  margin-left: 20px;
 }
 
 /* Tablet and smaller */

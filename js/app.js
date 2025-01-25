@@ -104,11 +104,18 @@ function createContentModal(product) {
 
   const description = document.createElement("p");
   description.textContent = product.description;
+
   const voteQty = document.createElement("p");
   voteQty.textContent = "Cantidad de votos: 0";
+  voteQty.classList.add("text-quantity");
+
+  const btnContinue = document.createElement("button");
+  btnContinue.textContent = "Continuar";
+  btnContinue.classList.add("btn-modal");
 
   const btnClose = document.createElement("button");
-  btnClose.textContent = "Cancelar";
+  btnClose.textContent = "Cerrar";
+  btnClose.classList.add("btn-modal");
 
   btnClose.addEventListener("click", closeModal);
 
@@ -117,6 +124,7 @@ function createContentModal(product) {
   modalContent.appendChild(description);
   modalContent.appendChild(voteQty);
   modalContent.appendChild(btnClose);
+  modalContent.appendChild(btnContinue);
 
   modal.appendChild(modalContent);
 }
@@ -128,13 +136,26 @@ voteForm.addEventListener("submit", function (event) {
   const currentSelectedProduct = getCurrentSelectedProduct();
   const title = currentSelectedProduct.dataset.title;
 
+  const searchedProduct = productsList.find(
+    (product) => product.name === title
+  );
+
   /**
    * Primero vamos a verificar que el producto no exista en la lista de productos que es la variable voteProducts
    */
-
   const searchProductInVoteProducts = voteProducts.find(
     (voteProduct) => voteProduct.name === title
   );
+
+  openModal();
+
+  createContentModal({
+    image: "./images/" + searchedProduct.image_file,
+    title: title,
+    description: currentSelectedProduct.dataset.description,
+  });
+
+  const textQueantity = document.querySelector(".text-quantity");
 
   // si la condicion se cumple la funcion find nos retorna un elemento, pero si no retorna undefined
   // undefined -> creamos el producto en localStorage
@@ -142,12 +163,11 @@ voteForm.addEventListener("submit", function (event) {
   if (searchProductInVoteProducts) {
     // actualizamos el elemento
     searchProductInVoteProducts.vote_quantity++;
+    // vamos a buscar ese elemento y cambiarle el texto
+    textQueantity.textContent =
+      "Cantidad de votos: " + searchProductInVoteProducts.vote_quantity;
   } else {
     // debemos crear el producto
-    const searchedProduct = productsList.find(
-      (product) => product.name === title
-    );
-
     const newProduct = new Product(
       searchedProduct.name,
       searchedProduct.year,
@@ -155,23 +175,9 @@ voteForm.addEventListener("submit", function (event) {
       searchedProduct.image_file,
       1
     );
-
+    // vamos a buscar ese elemento y cambiarle el texto
     voteProducts.push(newProduct);
+    textQueantity.textContent = "Cantidad de votos: 1";
   }
   localStorage.setItem("products", JSON.stringify(voteProducts));
-
-  /**
-   * Primero debemos buscar si el producto existe en localStorage sumarle 1 si no crearlo
-   */
-
-  // agregar el voto y crear el product en localStorage
-  // debemos buscar el producto en la lista, en este caso vamos a buscar por nombre
-
-  openModal();
-
-  createContentModal({
-    image: "",
-    title: title,
-    description: currentSelectedProduct.dataset.description,
-  });
 });
