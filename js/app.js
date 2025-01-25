@@ -3,7 +3,7 @@ const voteForm = document.getElementById("vote-form");
 const modal = document.querySelector(".modal");
 const overlay = document.querySelector(".overlay");
 const productsContainer = document.getElementById("products-container");
-
+const btnRefresh = document.getElementById("btn-refresh");
 let selectedItem = null;
 
 function getRandomProducts(count = 3) {
@@ -38,7 +38,7 @@ function setToolTip() {
 function renderProducts() {
   // esta funcion retorna 3 productos al azar
   const randomProducts = getRandomProducts();
-
+productsContainer.innerHTML = "";
   // iteramos la lista de productos
   for (let randomProduct of randomProducts) {
     // luego creamos la ui
@@ -60,6 +60,7 @@ function renderProducts() {
 
 renderProducts();
 
+btnRefresh.addEventListener("click", renderProducts);
 function addTooltipToDiv(product) {
   const description = product.dataset.description;
   const tooltip = document.createElement("div");
@@ -112,6 +113,7 @@ function createContentModal(product) {
   const btnContinue = document.createElement("button");
   btnContinue.textContent = "Continuar";
   btnContinue.classList.add("btn-modal");
+  btnContinue.addEventListener("click", continueVote);
 
   const btnClose = document.createElement("button");
   btnClose.textContent = "Cerrar";
@@ -128,6 +130,12 @@ function createContentModal(product) {
 
   modal.appendChild(modalContent);
 }
+
+function continueVote() {
+  closeModal();
+  renderProducts();
+}
+
 
 voteForm.addEventListener("submit", function (event) {
   // Paso1: es evitar que el formulario recargue la pagina
